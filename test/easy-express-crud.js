@@ -2,7 +2,7 @@
 
 describe('easy-express-crud', function() {
   var assert = require('assert');
-  var prequire = require('proxyquire');
+  var prequire = require('proxyquire').noCallThru();
   var sinon = require('sinon');
   var app = {
     delete: sinon.stub(),
@@ -11,7 +11,7 @@ describe('easy-express-crud', function() {
     put: sinon.stub()
   };
   var express = {application: app};
-  var module = prequire('../', {
+  var module = prequire('../lib/index', {
     'express': express
   });
   var getRoute = require('./test-helpers').getRoute;
@@ -35,7 +35,7 @@ describe('easy-express-crud', function() {
   });
 
   it('has no interface', function() {
-    assert.equal(require('../'), null);
+    assert.equal(module, null);
   });
 
   it('adds a crud method to express apps', function() {
