@@ -1,5 +1,5 @@
 {
-  "name": "easy-express-crud",
+  "name": "express-crud",
   "version": "0.0.0",
   "description": "Easy CRUD for express apps!",
   "main": "./lib",
@@ -12,19 +12,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jsdevel/node-easy-express-crud.git"
+    "url": "https://github.com/jsdevel/node-express-crud.git"
   },
   "keywords": [
-    "easy",
     "crud",
     "express"
   ],
   "author": "Joseph Spencer",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jsdevel/node-easy-express-crud/issues"
+    "url": "https://github.com/jsdevel/node-express-crud/issues"
   },
-  "homepage": "https://github.com/jsdevel/node-easy-express-crud",
+  "homepage": "https://github.com/jsdevel/node-express-crud",
   "peerDependencies": {
     "express": "*"
   },

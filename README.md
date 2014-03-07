@@ -1,6 +1,6 @@
-easy-express-crud
+express-crud
 ======================
-[![Build Status](https://travis-ci.org/jsdevel/node-easy-express-crud.png)](https://travis-ci.org/jsdevel/node-easy-express-crud)
+[![Build Status](https://travis-ci.org/jsdevel/node-express-crud.png)](https://travis-ci.org/jsdevel/node-express-crud)
 
 Easily route a resource's crud methods to express apps!
 
@@ -10,9 +10,9 @@ Here's a User resource that exposes some CRUD methods:
 ````javascript
 module.exports = {
   create:function(model, cb){},
-  delete:function(query, cb){},
-  read:function(){query, cb},
-  update:function(query, model, cb){}
+  delete:function(id, cb){},
+  read:function([id,] query, cb){},
+  update:function(id, model, cb){}
 };
 ````
 
@@ -21,7 +21,8 @@ Here's how you add the routes to your express app:
 var app = require('express')();
 var User = require('./models/User');
 
-require('easy-express-crud');
+require('express-crud');
+
 app.crud('users', User);
 ````
 

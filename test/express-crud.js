@@ -1,6 +1,6 @@
 'use strict';
 
-describe('easy-express-crud', function() {
+describe('express-crud', function() {
   var assert = require('assert');
   var prequire = require('proxyquire').noCallThru();
   var sinon = require('sinon');
