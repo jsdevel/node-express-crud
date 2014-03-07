@@ -1,0 +1,41 @@
+{
+  "name": "easy-express-crud",
+  "version": "0.0.0",
+  "description": "Easy CRUD for express apps!",
+  "main": "./lib",
+  "scripts": {
+    "jshint": "jshint lib && jshint --config .jshintrc-test test",
+    "mocha": "mocha --debug-brk -w",
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha",
+    "report": "istanbul report cobertura",
+    "test": "npm run-script jshint && npm run-script cover && npm run-script report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsdevel/node-easy-express-crud.git"
+  },
+  "keywords": [
+    "easy",
+    "crud",
+    "express"
+  ],
+  "author": "Joseph Spencer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jsdevel/node-easy-express-crud/issues"
+  },
+  "homepage": "https://github.com/jsdevel/node-easy-express-crud",
+  "peerDependencies": {
+    "express": "*"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.1",
+    "should": "~3.1.3",
+    "sinon": "~1.9.0",
+    "istanbul": "~0.2.6",
+    "proxyquire": "~0.5.2"
+  },
+  "dependencies": {
+    "err-handler": "0.0.0"
+  }
+}
