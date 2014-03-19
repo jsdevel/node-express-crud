@@ -5,7 +5,7 @@
   "main": "./lib",
   "scripts": {
     "jshint": "jshint lib && jshint --config .jshintrc-test test",
-    "mocha": "mocha --debug-brk -w",
+    "mocha": "mocha -w", 
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha",
     "report": "istanbul report cobertura",
     "test": "npm run-script jshint && npm run-script cover && npm run-script report"
@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/jsdevel/node-express-crud",
   "peerDependencies": {
-    "express": "*"
+    "express": "*",
+    "async": "*"
   },
   "devDependencies": {
     "mocha": "~1.17.1",
@@ -33,7 +34,8 @@
     "sinon": "~1.9.0",
     "istanbul": "~0.2.6",
     "proxyquire": "~0.5.2",
-    "jshint": "~2.4.4"
+    "jshint": "~2.4.4",
+    "async": "*"
   },
   "dependencies": {
     "err-handler": "0.0.0"
