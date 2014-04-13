@@ -1,6 +1,7 @@
-express-crud
-======================
+#express-crud
+
 [![Build Status](https://travis-ci.org/jsdevel/node-express-crud.png)](https://travis-ci.org/jsdevel/node-express-crud)
+[![Coverage Status] (https://coveralls.io/repos/jsdevel/node-express-crud/badge.png)] (https://coveralls.io/r/jsdevel/node-express-crud)
 
 Easily route a resource's crud methods to express apps!
 

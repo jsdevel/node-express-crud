@@ -6,7 +6,7 @@
   "scripts": {
     "jshint": "jshint lib && jshint --config .jshintrc-test test",
     "mocha": "mocha -w",
-    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha",
+    "cover": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf coverage",
     "report": "istanbul report cobertura",
     "test": "npm run-script jshint && npm run-script cover && npm run-script report"
   },
@@ -35,7 +35,8 @@
     "istanbul": "~0.2.6",
     "proxyquire": "~0.5.2",
     "jshint": "~2.4.4",
-    "async": "*"
+    "async": "*",
+    "coveralls": "~2.10.0"
   },
   "dependencies": {
     "err-handler": "0.0.0"
