@@ -1,9 +1,5 @@
-#express-crud
-
-[![Build Status](https://travis-ci.org/jsdevel/node-express-crud.png)](https://travis-ci.org/jsdevel/node-express-crud)
-[![Coverage Status] (https://coveralls.io/repos/jsdevel/node-express-crud/badge.png)] (https://coveralls.io/r/jsdevel/node-express-crud)
-
-Easily route a resource's crud methods to express apps!
+# express-crud [![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url]
+> Easily route a resource's crud methods to express apps!
 
 ##Example
 Here's a User resource that exposes some CRUD methods:
