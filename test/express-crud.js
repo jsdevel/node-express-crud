@@ -42,6 +42,12 @@ describe('express-crud', function() {
   });
 
   describe('app#crud', function() {
+    it('expects the first arg to be type string', function(){
+      assert.throws(function(){
+        app.crud(null, ResourceStub);
+      }, /Error:\sroute\sexpected\sas\sstring/);
+    });
+
     it('does not prefix with / if route has / prefix', function(){
       app.crud('/blas', ResourceStub);
       sinon.assert.calledWith(app.post, '/blas', sinon.match.func);
@@ -77,6 +83,45 @@ describe('express-crud', function() {
       it('adds PUT routes', function() {
         sinon.assert.calledWith(app.put, '/blas/:id', sinon.match.func);
         sinon.assert.calledOnce(app.put);
+      });
+    });
+
+    describe('with middleware on a resource with crud methods', function(){
+      var middleware1;
+      var middleware2;
+      var randomFn;
+      beforeEach(function() {
+        middleware1 = function(req, res, next){};
+        middleware2 = function(req, res, next){};
+        randomFn = function(){};//this should be filtered
+        app.crud('foo', randomFn, middleware1, middleware2, ResourceStub);
+      });
+
+      it('adds POST routes', function() {
+        sinon.assert.calledWith(
+          app.post, '/foo', middleware1, middleware2, sinon.match.func
+        );
+      });
+
+      it('adds DELETE routes', function() {
+        sinon.assert.calledWith(
+          app.delete, '/foo/:id', middleware1, middleware2, sinon.match.func
+        );
+      });
+
+      it('adds GET routes', function() {
+        sinon.assert.calledWith(
+          app.get, '/foo/:id', middleware1, middleware2, sinon.match.func
+        );
+        sinon.assert.calledWith(
+          app.get, '/foo', middleware1, middleware2, sinon.match.func
+        );
+      });
+
+      it('adds PUT routes', function() {
+        sinon.assert.calledWith(
+          app.put, '/foo/:id', middleware1, middleware2, sinon.match.func
+        );
       });
     });
 

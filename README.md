@@ -34,3 +34,19 @@ GET /users/:id
 POST /users
 PUT /users/:id
 ````
+
+###With some middleware
+````javascript
+var authorizeMiddleware = function(req, res, next){//arity matters!
+  if(req.query.username !== 'foo')return next(new Error('user not foo!'));
+  next();
+};
+var fooMiddleware = function(req, res, next){next();};
+
+app.crud('users', authorizeMiddleware, fooMiddleware, User);
+````
+
+###With any path
+````javascript
+app.crud('/any/old/path/for/users', User);
+````
