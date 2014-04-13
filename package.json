@@ -1,6 +1,6 @@
 {
   "name": "express-crud",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Easy CRUD for express apps!",
   "main": "./lib",
   "scripts": {
