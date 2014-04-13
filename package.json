@@ -1,11 +1,11 @@
 {
   "name": "express-crud",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Easy CRUD for express apps!",
   "main": "./lib",
   "scripts": {
     "jshint": "jshint lib && jshint --config .jshintrc-test test",
-    "mocha": "mocha -w", 
+    "mocha": "mocha -w",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha",
     "report": "istanbul report cobertura",
     "test": "npm run-script jshint && npm run-script cover && npm run-script report"
