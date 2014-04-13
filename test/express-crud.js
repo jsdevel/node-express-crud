@@ -42,8 +42,12 @@ describe('express-crud', function() {
   });
 
   describe('app#crud', function() {
-    describe('on a resource with crud methods', function() {
+    it('does not prefix with / if route has / prefix', function(){
+      app.crud('/blas', ResourceStub);
+      sinon.assert.calledWith(app.post, '/blas', sinon.match.func);
+    });
 
+    describe('on a resource with crud methods', function() {
       beforeEach(function(){
         app.crud('blas', ResourceStub);
       });
