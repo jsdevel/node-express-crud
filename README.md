@@ -1,4 +1,4 @@
-# express-crud [![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url]
+# express-crud [![NPM version](https://badge.fury.io/js/express-crud.svg)](http://badge.fury.io/js/express-crud)  [![Travis build status](https://travis-ci.org/jsdevel/node-express-crud.png?branch=master)](https://travis-ci.org/jsdevel/node-express-crud) [![Coverage Status](https://coveralls.io/repos/jsdevel/node-express-crud/badge.png?branch=master)](https://coveralls.io/r/jsdevel/node-express-crud?branch=master)
 > Easily route a resource's crud methods to express apps!
 
 ##Example
