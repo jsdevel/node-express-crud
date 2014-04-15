@@ -1,4 +1,4 @@
-# express-crud [![NPM version](https://badge.fury.io/js/express-crud.svg)](http://badge.fury.io/js/express-crud)  [![Travis build status](https://travis-ci.org/jsdevel/node-express-crud.png?branch=master)](https://travis-ci.org/jsdevel/node-express-crud) [![Coverage Status](https://coveralls.io/repos/jsdevel/node-express-crud/badge.png?branch=master)](https://coveralls.io/r/jsdevel/node-express-crud?branch=master)
+# express-crud [![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url]
 > Easily route a resource's crud methods to express apps!
 
 ##Example
@@ -47,3 +47,13 @@ app.crud('users', authorizeMiddleware, fooMiddleware, User);
 ````javascript
 app.crud('/any/old/path/for/users', User);
 ````
+
+[downloads-image]: http://img.shields.io/npm/dm/express-crud.svg
+[npm-url]: https://npmjs.org/package/express-crud
+[npm-image]: http://img.shields.io/npm/v/express-crud.svg
+
+[travis-url]: https://travis-ci.org/jsdevel/node-express-crud
+[travis-image]: http://img.shields.io/travis/jsdevel/node-express-crud.svg
+
+[coveralls-url]: https://coveralls.io/r/jsdevel/node-express-crud
+[coveralls-image]: http://img.shields.io/coveralls/jsdevel/node-express-crud/master.svg
