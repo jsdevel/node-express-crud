@@ -6,7 +6,7 @@
   "scripts": {
     "jshint": "jshint lib && jshint --config .jshintrc-test test",
     "mocha": "mocha -w",
-    "cover": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf coverage",
+    "cover": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls -v && rm -rf coverage",
     "report": "istanbul report cobertura",
     "test": "npm run-script jshint && npm run-script cover && npm run-script report"
   },
