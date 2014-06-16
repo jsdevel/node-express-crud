@@ -6,10 +6,11 @@ Here's a User resource that exposes some CRUD methods:
 
 ````javascript
 module.exports = {
-  create:function(model, cb){},
-  delete:function(id, query, cb){},
-  read:function([id,] query, cb){},
-  update:function(id, query, model, cb){}
+  create:   function(model, cb){},
+  delete:   function(id, query, cb){},
+  read:     function(query, cb){},
+  readById: function(id, query, cb){},
+  update:   function(id, query, model, cb){}
 };
 ````
 
@@ -57,6 +58,14 @@ var fooMiddleware = function(req, res, next){next();};
 
 app.crud('users', authorizeMiddleware, fooMiddleware, User);
 ````
+
+### Restrict access to resources by user
+```javascript
+app.crud('settings/:settingId', authorizeMiddleware, function(req, res. next){
+  //ensure that the resource get's the username.
+  req.query.username = req.user.name;
+}, SettingsResource);
+```
 
 ###With any path
 ````javascript

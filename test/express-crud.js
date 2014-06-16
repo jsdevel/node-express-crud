@@ -30,6 +30,7 @@ describe('express-crud', function() {
     ResourceStub.create.reset();
     ResourceStub.delete.reset();
     ResourceStub.read.reset();
+    ResourceStub.readById.reset();
     ResourceStub.update.reset();
   });
 
@@ -245,11 +246,11 @@ describe('express-crud', function() {
             var resource = {};
             req.params.id = '7';
             getRoute('/resources/:id', app.get.args)(req, res, next);
-            ResourceStub.read.args[0][2](null, resource);
+            ResourceStub.readById.args[0][2](null, resource);
             sinon.assert.calledWith(
-              ResourceStub.read,
+              ResourceStub.readById,
               '7',
-              null,
+              sinon.match.object,
               sinon.match.func
               );
             sinon.assert.calledWith(
@@ -263,11 +264,11 @@ describe('express-crud', function() {
             req.params.id = '7';
             req.query.foo = 9;
             getRoute('/resources/:id', app.get.args)(req, res, next);
-            ResourceStub.read.args[0][2](null, null);
+            ResourceStub.readById.args[0][2](null, null);
             sinon.assert.calledWith(
-              ResourceStub.read,
+              ResourceStub.readById,
               '7',
-              null,
+              sinon.match.object,
               sinon.match.func
               );
             sinon.assert.calledWith(
@@ -285,29 +286,29 @@ describe('express-crud', function() {
             var resource2 = {};
             var resource3 = {};
             getRoute('/resources/:id', app.get.args)(req, res, next);
-            ResourceStub.read.args[0][2](null, resource1);
-            ResourceStub.read.args[1][2](null, resource2);
-            ResourceStub.read.args[2][2](null, resource3);
+            ResourceStub.readById.args[0][2](null, resource1);
+            ResourceStub.readById.args[1][2](null, resource2);
+            ResourceStub.readById.args[2][2](null, resource3);
 
             setTimeout(function(){
               sinon.assert.calledWith(
-                ResourceStub.read,
+                ResourceStub.readById,
                 '7',
-                null,
+                sinon.match.object,
                 sinon.match.func
                 );
 
               sinon.assert.calledWith(
-                ResourceStub.read,
+                ResourceStub.readById,
                 '8',
-                null,
+                sinon.match.object,
                 sinon.match.func
                 );
 
               sinon.assert.calledWith(
-                ResourceStub.read,
+                ResourceStub.readById,
                 '6',
-                null,
+                sinon.match.object,
                 sinon.match.func
                 );
               assert.deepEqual(res.json.args[0], [200, [resource1, resource2, resource3]]);
@@ -317,28 +318,28 @@ describe('express-crud', function() {
 
           it('returns 404 when at least one of the resources is not found', function() {
             req.params.id = '8,6,7';
-            ResourceStub.read.callsArgWith(2, null, null);
+            ResourceStub.readById.callsArgWith(2, null, null);
             getRoute('/resources/:id', app.get.args)(req, res, next);
 
             sinon.assert.calledWith(
-              ResourceStub.read,
+              ResourceStub.readById,
               '7',
-              null,
+              sinon.match.object,
               sinon.match.func
               );
 
             sinon.assert.calledWith(res.json, 404, [null, null, null]);
             sinon.assert.calledWith(
-              ResourceStub.read,
+              ResourceStub.readById,
               '8',
-              null,
+              sinon.match.object,
               sinon.match.func
               );
 
             sinon.assert.calledWith(
-              ResourceStub.read,
+              ResourceStub.readById,
               '6',
-              null,
+              sinon.match.object,
               sinon.match.func
               );
           });
