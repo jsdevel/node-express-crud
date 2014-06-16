@@ -86,6 +86,33 @@ describe('express-crud', function() {
       });
     });
 
+    describe('on a resource with crud methods and a param at the end of the route', function() {
+      beforeEach(function(){
+        app.crud('blas/:blaId', ResourceStub);
+      });
+
+      it('adds POST routes', function() {
+        sinon.assert.calledWith(app.post, '/blas', sinon.match.func);
+        sinon.assert.calledOnce(app.post);
+      });
+
+      it('adds DELETE routes', function() {
+        sinon.assert.calledWith(app.delete, '/blas/:blaId', sinon.match.func);
+        sinon.assert.calledOnce(app.delete);
+      });
+
+      it('adds GET routes', function() {
+        sinon.assert.calledWith(app.get, '/blas/:blaId', sinon.match.func);
+        sinon.assert.calledWith(app.get, '/blas', sinon.match.func);
+        sinon.assert.calledTwice(app.get);
+      });
+
+      it('adds PUT routes', function() {
+        sinon.assert.calledWith(app.put, '/blas/:blaId', sinon.match.func);
+        sinon.assert.calledOnce(app.put);
+      });
+    });
+
     describe('with middleware on a resource with crud methods', function(){
       var middleware1;
       var middleware2;

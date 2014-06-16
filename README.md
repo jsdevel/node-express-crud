@@ -32,6 +32,21 @@ POST /users
 PUT /users/:id
 ````
 
+### Changing the param name
+You can change the param name by specifying it at the end of your route:
+```javascript
+app.crud('users/:userId', User);
+```
+
+Now your express app has the following routes:
+````
+DELETE /users/:userId
+GET /users
+GET /users/:userId
+POST /users
+PUT /users/:userId
+````
+
 ###With some middleware
 ````javascript
 var authorizeMiddleware = function(req, res, next){//arity matters!
