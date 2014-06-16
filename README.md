@@ -7,9 +7,9 @@ Here's a User resource that exposes some CRUD methods:
 ````javascript
 module.exports = {
   create:function(model, cb){},
-  delete:function(id, cb){},
+  delete:function(id, query, cb){},
   read:function([id,] query, cb){},
-  update:function(id, model, cb){}
+  update:function(id, query, model, cb){}
 };
 ````
 

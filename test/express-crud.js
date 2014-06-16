@@ -196,11 +196,12 @@ describe('express-crud', function() {
       describe('for a single id' , function() {
         it('deletes one resource', function() {
           req.params.id = '8';
-          ResourceStub.delete.callsArgWith(1, null);
+          ResourceStub.delete.callsArgWith(2, null);
           getRoute('/resources/:id', app.delete.args)(req, res, next);
           sinon.assert.calledWith(
             ResourceStub.delete,
             '8',
+            sinon.match.object,
             sinon.match.func
             );
           sinon.assert.calledWith(res.send, 204);
@@ -210,24 +211,27 @@ describe('express-crud', function() {
       describe('for multiple ids', function() {
         it('deletes multiple resources', function() {
           req.params.id = '8,6,7';
-          ResourceStub.delete.callsArgWith(1, null);
+          ResourceStub.delete.callsArgWith(2, null);
           getRoute('/resources/:id', app.delete.args)(req, res, next);
           sinon.assert.calledWith(res.send, 204);
 
           sinon.assert.calledWith(
             ResourceStub.delete,
             '7',
+            sinon.match.object,
             sinon.match.func
             );
           sinon.assert.calledWith(
             ResourceStub.delete,
             '8',
+            sinon.match.object,
             sinon.match.func
             );
 
           sinon.assert.calledWith(
             ResourceStub.delete,
             '6',
+            sinon.match.object,
             sinon.match.func
             );
         });
@@ -411,11 +415,12 @@ describe('express-crud', function() {
       it('returns 200 when resource is found', function() {
         req.params.id=9;
         req.body.foo=6;
-        ResourceStub.update.callsArgWith(2, null, 5);
+        ResourceStub.update.callsArgWith(3, null, 5);
         getRoute('/resources/:id', app.put.args)(req, res, next);
         sinon.assert.calledWith(
           ResourceStub.update,
           9,
+          sinon.match.object,
           sinon.match({foo:6}),
           sinon.match.func
         );
@@ -426,11 +431,12 @@ describe('express-crud', function() {
       it('returns 404 when no resource is found', function() {
         req.params.id=9;
         req.body.foo=6;
-        ResourceStub.update.callsArgWith(2, null, null);
+        ResourceStub.update.callsArgWith(3, null, null);
         getRoute('/resources/:id', app.put.args)(req, res, next);
         sinon.assert.calledWith(
           ResourceStub.update,
           9,
+          sinon.match.object,
           sinon.match({foo:6}),
           sinon.match.func
         );
