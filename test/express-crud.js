@@ -36,7 +36,7 @@ describe('express-crud', function() {
     app = express();
 
     resource = {
-      create: function(model, cb){
+      create: function(query, model, cb){
         createArgs.push(arguments);
         cb(null, createResponse);
       },

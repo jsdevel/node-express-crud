@@ -6,7 +6,7 @@ Here's a User resource that exposes some CRUD methods:
 
 ````javascript
 module.exports = {
-  create:   function(model, cb){},
+  create:   function(query, model, cb){},
   delete:   function(id, query, cb){},
   read:     function(query, cb){},
   readById: function(id, query, cb){},
