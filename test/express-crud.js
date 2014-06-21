@@ -199,11 +199,11 @@ describe('express-crud', function() {
       });
     });
 
-    it('should return 404 when resource.read returns empty Array', function(done){
+    it('should return 200 when resource.read returns empty Array', function(done){
       readResponse = [];
       app.crud('blas', resource);
       request.get(endpoint + '/blas', function(err, res, body){
-        res.statusCode.should.equal(404);
+        res.statusCode.should.equal(200);
         done();
       });
     });
