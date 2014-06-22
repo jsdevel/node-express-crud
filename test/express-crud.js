@@ -154,6 +154,15 @@ describe('express-crud', function() {
       });
     });
 
+    it('should return 204 for empty resource.create responses', function(done){
+      createResponse = null;
+      app.crud('blas', resource);
+      request.post(endpoint + '/blas', function(err, res, body){
+        res.statusCode.should.equal(204);
+        done();
+      });
+    });
+
     it('should route delete', function(done){
       app.crud('blas', resource);
       request.del(endpoint + '/blas/5', function(err, res, body){
@@ -208,11 +217,11 @@ describe('express-crud', function() {
       });
     });
 
-    it('should return 404 when resource.read returns falsy', function(done){
+    it('should return 204 when resource.read returns falsy', function(done){
       readResponse = null;
       app.crud('blas', resource);
       request.get(endpoint + '/blas', function(err, res, body){
-        res.statusCode.should.equal(404);
+        res.statusCode.should.equal(204);
         done();
       });
     });
@@ -247,20 +256,20 @@ describe('express-crud', function() {
       });
     });
 
-    it('should return 404 when resource.readById returns falsy', function(done){
+    it('should return 204 when resource.readById returns falsy', function(done){
       readByIdResponse = null;
       app.crud('blas', resource);
       request.get(endpoint + '/blas/5', function(err, res, body){
-        res.statusCode.should.equal(404);
+        res.statusCode.should.equal(204);
         done();
       });
     });
 
-    it('should return 404 when resource.readById returns an array with a null value', function(done){
-      readByIdResponse = null;
+    it('should return 200 when resource.readById returns an empty array', function(done){
+      readByIdResponse = [];
       app.crud('blas', resource);
       request.get(endpoint + '/blas/5,6', function(err, res, body){
-        res.statusCode.should.equal(404);
+        res.statusCode.should.equal(200);
         done();
       });
     });
@@ -282,14 +291,13 @@ describe('express-crud', function() {
       });
     });
 
-    it('should return 404 when resource.update returns falsy', function(done){
+    it('should return 204 when resource.update returns falsy', function(done){
       updateResponse = null;
       app.crud('blas', resource);
       request.put(endpoint + '/blas/5', function(err, res, body){
-        res.statusCode.should.equal(404);
+        res.statusCode.should.equal(204);
         done();
       });
     });
-
   });
 });
