@@ -137,166 +137,196 @@ describe('express-crud', function() {
       });
     });
 
-    it('should route create', function(done){
-      app.crud('blas', resource);
-      request.post(endpoint + '/blas', function(err, res, body){
-        res.statusCode.should.equal(200);
-        done();
+    describe('resource.create', function(){
+      describe('when it does not exist', function(){
+        it('should not route post', function(done){
+          resource.create = null;
+          app.crud('blas', resource);
+          request.post(endpoint + '/blas', function(err, res, body){
+            res.statusCode.should.equal(404);
+            done();
+          });
+        });
+      });
+
+      describe('when it exists', function(){
+        it('should route post', function(done){
+          app.crud('blas', resource);
+          request.post(endpoint + '/blas', function(err, res, body){
+            res.statusCode.should.equal(200);
+            done();
+          });
+        });
+
+        it('should return 204 for nil results', function(done){
+          createResponse = null;
+          app.crud('blas', resource);
+          request.post(endpoint + '/blas', function(err, res, body){
+            res.statusCode.should.equal(204);
+            done();
+          });
+        });
       });
     });
 
-    it('should not route resource.create when it does not exist', function(done){
-      resource.create = null;
-      app.crud('blas', resource);
-      request.post(endpoint + '/blas', function(err, res, body){
-        res.statusCode.should.equal(404);
-        done();
+    describe('resource.delete', function(){
+      describe('when it does not exist', function(){
+        it('should not route delete', function(done){
+          resource.delete = null;
+          app.crud('blas', resource);
+          request.del(endpoint + '/blas/5', function(err, res, body){
+            res.statusCode.should.equal(404);
+            done();
+          });
+        });
+      });
+
+      describe('when it exists', function(){
+        it('should route delete', function(done){
+          app.crud('blas', resource);
+          request.del(endpoint + '/blas/5', function(err, res, body){
+            res.statusCode.should.equal(204);
+            done();
+          });
+        });
+
+        it('should handle multiple resource deletions', function(done){
+          app.crud('blas', resource);
+          request.del(endpoint + '/blas/5,6', function(err, res, body){
+            res.statusCode.should.equal(204);
+            deleteArgs.length.should.equal(2);
+            deleteArgs[0][0].should.equal('5');
+            deleteArgs[1][0].should.equal('6');
+            done();
+          });
+        });
       });
     });
 
-    it('should return 204 for empty resource.create responses', function(done){
-      createResponse = null;
-      app.crud('blas', resource);
-      request.post(endpoint + '/blas', function(err, res, body){
-        res.statusCode.should.equal(204);
-        done();
+    describe('resource.read', function(){
+      describe('when it does not exist', function(){
+        it('should not route get', function(done){
+          resource.read = null;
+          app.crud('blas', resource);
+          request.get(endpoint + '/blas', function(err, res, body){
+            res.statusCode.should.equal(404);
+            done();
+          });
+        });
       });
-    });
 
-    it('should route delete', function(done){
-      app.crud('blas', resource);
-      request.del(endpoint + '/blas/5', function(err, res, body){
-        res.statusCode.should.equal(204);
-        done();
-      });
-    });
+      describe('when it exists', function(){
+        it('should route get', function(done){
+          app.crud('blas', resource);
+          request.get(endpoint + '/blas', function(err, res, body){
+            res.statusCode.should.equal(200);
+            done();
+          });
+        });
 
-    it('should not route resource.delete when it does not exist', function(done){
-      resource.delete = null;
-      app.crud('blas', resource);
-      request.del(endpoint + '/blas/5', function(err, res, body){
-        res.statusCode.should.equal(404);
-        done();
-      });
-    });
+        it('should return 200 when given an Array', function(done){
+          readResponse = [];
+          app.crud('blas', resource);
+          request.get(endpoint + '/blas', function(err, res, body){
+            res.statusCode.should.equal(200);
+            done();
+          });
+        });
 
-    it('should handle multiple resource deletions', function(done){
-      app.crud('blas', resource);
-      request.del(endpoint + '/blas/5,6', function(err, res, body){
-        res.statusCode.should.equal(204);
-        deleteArgs.length.should.equal(2);
-        deleteArgs[0][0].should.equal('5');
-        deleteArgs[1][0].should.equal('6');
-        done();
-      });
-    });
-
-    it('should route resource.read', function(done){
-      app.crud('blas', resource);
-      request.get(endpoint + '/blas', function(err, res, body){
-        res.statusCode.should.equal(200);
-        done();
-      });
-    });
-
-    it('should not route resource.read when it does not exist', function(done){
-      resource.read = null;
-      app.crud('blas', resource);
-      request.get(endpoint + '/blas', function(err, res, body){
-        res.statusCode.should.equal(404);
-        done();
-      });
-    });
-
-    it('should return 200 when resource.read returns empty Array', function(done){
-      readResponse = [];
-      app.crud('blas', resource);
-      request.get(endpoint + '/blas', function(err, res, body){
-        res.statusCode.should.equal(200);
-        done();
-      });
-    });
-
-    it('should return 204 when resource.read returns falsy', function(done){
-      readResponse = null;
-      app.crud('blas', resource);
-      request.get(endpoint + '/blas', function(err, res, body){
-        res.statusCode.should.equal(204);
-        done();
+        it('should return 204 when not given an Array', function(done){
+          readResponse = null;
+          app.crud('blas', resource);
+          request.get(endpoint + '/blas', function(err, res, body){
+            res.statusCode.should.equal(204);
+            done();
+          });
+        });
       });
     });
 
 
-    it('should route readById', function(done){
-      app.crud('blas', resource);
-      request.get(endpoint + '/blas/5', function(err, res, body){
-        res.statusCode.should.equal(200);
-        done();
+    describe('resource.readById', function(){
+      describe('when it does not exist', function(){
+        it('should not route get', function(done){
+          resource.readById = null;
+          app.crud('blas', resource);
+          request.get(endpoint + '/blas/5', function(err, res, body){
+            res.statusCode.should.equal(404);
+            done();
+          });
+        });
+      });
+
+      describe('when it exists', function(){
+        it('should route get', function(done){
+          app.crud('blas', resource);
+          request.get(endpoint + '/blas/5', function(err, res, body){
+            res.statusCode.should.equal(200);
+            done();
+          });
+        });
+
+        it('should handle multiple ids in the path', function(done){
+          app.crud('blas', resource);
+          request.get(endpoint + '/blas/6,7,1', function(err, res, body){
+            res.statusCode.should.equal(200);
+            readByIdArgs.length.should.equal(3);
+            readByIdArgs[0][0].should.equal('6');
+            readByIdArgs[1][0].should.equal('7');
+            readByIdArgs[2][0].should.equal('1');
+            done();
+          });
+        });
+
+        it('should return 200 when given an Array', function(done){
+          readByIdResponse = [];
+          app.crud('blas', resource);
+          request.get(endpoint + '/blas/5,6', function(err, res, body){
+            res.statusCode.should.equal(200);
+            done();
+          });
+        });
+
+        it('should return 204 when given a nil value', function(done){
+          readByIdResponse = null;
+          app.crud('blas', resource);
+          request.get(endpoint + '/blas/5', function(err, res, body){
+            res.statusCode.should.equal(204);
+            done();
+          });
+        });
       });
     });
 
-    it('should not route resource.readById when it does not exist', function(done){
-      resource.readById = null;
-      app.crud('blas', resource);
-      request.get(endpoint + '/blas/5', function(err, res, body){
-        res.statusCode.should.equal(404);
-        done();
+    describe('resource.update', function(){
+      describe('when it does not exist', function(){
+        it('should not route put', function(done){
+          resource.update = null;
+          app.crud('blas', resource);
+          request.put(endpoint + '/blas/5', function(err, res, body){
+            res.statusCode.should.equal(404);
+            done();
+          });
+        });
       });
-    });
 
-    it('should handle multiple resource.readByIds', function(done){
-      app.crud('blas', resource);
-      request.get(endpoint + '/blas/6,7,1', function(err, res, body){
-        res.statusCode.should.equal(200);
-        readByIdArgs.length.should.equal(3);
-        readByIdArgs[0][0].should.equal('6');
-        readByIdArgs[1][0].should.equal('7');
-        readByIdArgs[2][0].should.equal('1');
-        done();
-      });
-    });
+      describe('when it does exist', function(){
+        it('should route put', function(done){
+          app.crud('blas', resource);
+          request.put(endpoint + '/blas/5', function(err, res, body){
+            res.statusCode.should.equal(200);
+            done();
+          });
+        });
 
-    it('should return 204 when resource.readById returns falsy', function(done){
-      readByIdResponse = null;
-      app.crud('blas', resource);
-      request.get(endpoint + '/blas/5', function(err, res, body){
-        res.statusCode.should.equal(204);
-        done();
-      });
-    });
-
-    it('should return 200 when resource.readById returns an empty array', function(done){
-      readByIdResponse = [];
-      app.crud('blas', resource);
-      request.get(endpoint + '/blas/5,6', function(err, res, body){
-        res.statusCode.should.equal(200);
-        done();
-      });
-    });
-
-    it('should route update', function(done){
-      app.crud('blas', resource);
-      request.put(endpoint + '/blas/5', function(err, res, body){
-        res.statusCode.should.equal(200);
-        done();
-      });
-    });
-
-    it('should not route resource.update when it does not exist', function(done){
-      resource.update = null;
-      app.crud('blas', resource);
-      request.put(endpoint + '/blas/5', function(err, res, body){
-        res.statusCode.should.equal(404);
-        done();
-      });
-    });
-
-    it('should return 204 when resource.update returns falsy', function(done){
-      updateResponse = null;
-      app.crud('blas', resource);
-      request.put(endpoint + '/blas/5', function(err, res, body){
-        res.statusCode.should.equal(204);
-        done();
+        it('should return 204 when given a nil value', function(done){
+          updateResponse = null;
+          app.crud('blas', resource);
+          request.put(endpoint + '/blas/5', function(err, res, body){
+            res.statusCode.should.equal(204);
+            done();
+          });
+        });
       });
     });
   });
