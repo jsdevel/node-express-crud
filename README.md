@@ -71,6 +71,11 @@ app.crud('settings/:settingId', authorizeMiddleware, function(req, res. next){
 ````javascript
 app.crud('/any/old/path/for/users', User);
 ````
+## Status Codes
+When you call the callback given to resource methods without an error object as the
+first arg, `express-crud` will use either `204` or `200` depending on the context.
+If you wish to pass a non `2xx` status code up to your application the preferred
+way is to assign a `status` property to your `error` object I.E. `cb({status: 404})`.
 
 [downloads-image]: http://img.shields.io/npm/dm/express-crud.svg
 [npm-url]: https://npmjs.org/package/express-crud
