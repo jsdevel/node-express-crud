@@ -11,6 +11,7 @@ describe('express-crud', function() {
   var createArgs = [];
   var createResponse;
   var deleteArgs = [];
+  var deleteResponse;
   var readArgs = [];
   var readResponse;
   var readByIdArgs = [];
@@ -42,7 +43,7 @@ describe('express-crud', function() {
       },
       delete: function(id, query, cb){
         deleteArgs.push(arguments);
-        cb();
+        cb(null, deleteResponse);
       },
       read: function(query, cb){
         readArgs.push(arguments);
@@ -61,6 +62,7 @@ describe('express-crud', function() {
     createArgs.length = 0;
     createResponse = resourceData[0];
     deleteArgs.length = 0;
+    deleteResponse = null;
     readArgs.length = 0;
     readResponse = resourceData;
     readByIdArgs.length = 0;
@@ -190,10 +192,19 @@ describe('express-crud', function() {
           });
         });
 
+        it('should return 200 when the response is truty', function(done){
+          deleteResponse = {};
+          app.crud('blas', resource);
+          request.del(endpoint + '/blas/5', function(err, res, body){
+            res.statusCode.should.equal(200);
+            done();
+          });
+        });
+
         it('should handle multiple resource deletions', function(done){
           app.crud('blas', resource);
           request.del(endpoint + '/blas/5,6', function(err, res, body){
-            res.statusCode.should.equal(204);
+            res.statusCode.should.equal(200);
             deleteArgs.length.should.equal(2);
             deleteArgs[0][0].should.equal('5');
             deleteArgs[1][0].should.equal('6');
