@@ -19,7 +19,25 @@ Here's how you add the routes to your express app:
 var app = require('express')();
 var User = require('./models/User');
 
-require('express-crud');
+require('express-crud')(app);
+
+app.crud('users', User);
+````
+
+Here's how you add the routes to your express app using a formatted response object:
+````javascript
+var app = require('express')();
+var User = require('./models/User');
+var opts = {
+	formatResponse: function(result) {
+		return {
+			timestamp: Date.now(),
+			payload: result
+		};
+	}
+};
+
+require('express-crud')(app, opts);
 
 app.crud('users', User);
 ````
@@ -61,16 +79,19 @@ app.crud('users', authorizeMiddleware, fooMiddleware, User);
 
 ### Restrict access to resources by user
 ```javascript
-app.crud('settings/:settingId', authorizeMiddleware, function(req, res. next){
+app.crud('settings/:settingId', authorizeMiddleware, function(req, res, next){
   //ensure that the resource get's the username.
   req.query.username = req.user.name;
+  next();
 }, SettingsResource);
 ```
+### Format your response
 
-###With any path
+### With any path
 ````javascript
 app.crud('/any/old/path/for/users', User);
 ````
+
 ## Status Codes
 When you call the callback given to resource methods without an error object as the
 first arg, `express-crud` will use either `204` or `200` depending on the context.
