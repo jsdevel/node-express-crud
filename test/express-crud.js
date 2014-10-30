@@ -8,6 +8,7 @@ describe('express-crud', function() {
   var express = require('express');
   var request = require('request').defaults({json: true});
   var app;
+  var crud;
   var createArgs = [];
   var createResponse;
   var deleteArgs = [];
@@ -35,6 +36,7 @@ describe('express-crud', function() {
 
   beforeEach(function(){
     app = express();
+    crud = expressCrud(app);
 
     resource = {
       create: function(query, model, cb){
@@ -71,8 +73,12 @@ describe('express-crud', function() {
     updateResponse = resourceData[0];
   });
 
-  it('has no interface', function() {
-    assert.equal(expressCrud, null);
+  it('has a function interface', function() {
+    assert.equal(typeof expressCrud, 'function');
+  });
+
+  it('returns a crud function bound to the app', function() {
+    assert.equal(typeof crud, 'function');
   });
 
   it('adds a crud method to express apps', function() {
