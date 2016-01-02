@@ -101,6 +101,10 @@ first arg, `express-crud` will use either `204` or `200` depending on the contex
 If you wish to pass a non `2xx` status code up to your application the preferred
 way is to assign a `status` property to your `error` object I.E. `cb({status: 404})`.
 
+## Reading req.body
+
+Starting with `express@4.x.x`, `body-parser` isn't active by default.  See #16 for a working example with the `body-parser` middleware.
+
 [downloads-image]: http://img.shields.io/npm/dm/express-crud.svg
 [npm-url]: https://npmjs.org/package/express-crud
 [npm-image]: http://img.shields.io/npm/v/express-crud.svg
